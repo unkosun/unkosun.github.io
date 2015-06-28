@@ -30,7 +30,7 @@
 在说 Builder Pattern 之前，我们先来看看一个场景。假设我们要预定一个 iPhone 6，要 64G 的，金色的，用代码表述大概是这样
 
 
-// PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭
+    // PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭
 
 
     PFXiPhone6 *iphone = [[PFXiPhone6 alloc] init];    
@@ -161,9 +161,10 @@
 
 <p>在说 Builder Pattern 之前，我们先来看看一个场景。假设我们要预定一个 iPhone 6，要 64G 的，金色的，用代码表述大概是这样</p>
 
-<p>// PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭</p>
+<pre><code>// PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭
 
-<pre><code>PFXiPhone6 *iphone = [[PFXiPhone6 alloc] init];    
+
+PFXiPhone6 *iphone = [[PFXiPhone6 alloc] init];    
 iphone.storage = 64;    
 iphone.color = [UIColor goldenColor];    
 </code></pre>
