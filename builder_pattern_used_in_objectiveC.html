@@ -25,31 +25,33 @@
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
-Builder Pattern 在 Objective-C 中的使用
+# Builder Pattern 在 Objective-C 中的使用
 
 在说 Builder Pattern 之前，我们先来看看一个场景。假设我们要预定一个 iPhone 6，要 64G 的，金色的，用代码表述大概是这样
 
 
 // PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭
+`
 PFXiPhone6 *iphone = [[PFXiPhone6 alloc] init];
 iphone.storage = 64;
-iphone.color = [UIColor goldenColor];
+iphone.color = [UIColor goldenColor];`
 也可以是另一种方式
 
-
-PFXiPhone6 *iPhone = [[PFXiPhone6 alloc] initWithStorage:64 color:[UIColor goldenColor]];
+`
+PFXiPhone6 *iPhone = [[PFXiPhone6 alloc] initWithStorage:64 color:[UIColor goldenColor]];`
 第一种方式可扩展性好些，但无法约束必须设置某些 property。第二种方式修正了这个问题，但扩展性也差了。
 
 假如又有了新需求，要让客户可以选择发售区域，比如港行，国行，美版等等。对于第一种，自然可以新增一个属性，但使用者很可能完全不知道新增了这么个属性。对于第二种，则只能再新建一个初始化方式，如 -[initWithStorage:color:place]。那如果又有新的需求，比如选择是否刻字，以及刻哪些字呢？或者可以选择外壳的种类等等。这两种方式都不能很好地处理需求的变更。
 
 现在我们来说说 Builder Pattern，这个模式可以在各种语言里被很方便地实现，比如 javascript
 
-
+`
 new PFXiPhone6Builder()
   .setStorage(64)
   .setColor('golden')
   .setPlace('HK')
   .build();
+`
 当有新的属性时，再加一个 setProperty 即可。如果漏写了某个属性，可以在 build 里检查。
 
 在 Objective-C 里，这样的链式写法不是很流行（Masonry里这种写法用的比较多），所以，在 OC 里写起来大概会是这样
@@ -104,6 +106,7 @@ PFXiPhone6 *iPhone6 = [PFXiPhone6 createWithBuilder:^(PFXiPhone6Builder *builder
 - (PFXiPhone6 *)build
 {
     // 可以在这里对 property 做检查
+
     NSAssert(self.place, @"发行区别忘了填哦");
 
     PFXiPhone6 *iphone6 = [[PFXiPhone6 alloc] init];
@@ -154,28 +157,32 @@ self.collectionView = [MGJFlowCollectionView collectionViewWithBuilder:^(MGJFlow
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<p>Builder Pattern 在 Objective-C 中的使用</p>
+<h1 id="builderpatternobjectivec">Builder Pattern 在 Objective-C 中的使用</h1>
 
 <p>在说 Builder Pattern 之前，我们先来看看一个场景。假设我们要预定一个 iPhone 6，要 64G 的，金色的，用代码表述大概是这样</p>
 
 <p>// PFX 是一个前缀，因为直接写 iPhone6 不符合类名大写的习惯，写成 IPhone6 更是怪异 ╮(╯▽╰)╭
+<code>
 PFXiPhone6 *iphone = [[PFXiPhone6 alloc] init];
 iphone.storage = 64;
-iphone.color = [UIColor goldenColor];
+iphone.color = [UIColor goldenColor];</code>
 也可以是另一种方式</p>
 
-<p>PFXiPhone6 *iPhone = [[PFXiPhone6 alloc] initWithStorage:64 color:[UIColor goldenColor]];
+<p><code>
+PFXiPhone6 *iPhone = [[PFXiPhone6 alloc] initWithStorage:64 color:[UIColor goldenColor]];</code>
 第一种方式可扩展性好些，但无法约束必须设置某些 property。第二种方式修正了这个问题，但扩展性也差了。</p>
 
 <p>假如又有了新需求，要让客户可以选择发售区域，比如港行，国行，美版等等。对于第一种，自然可以新增一个属性，但使用者很可能完全不知道新增了这么个属性。对于第二种，则只能再新建一个初始化方式，如 -[initWithStorage:color:place]。那如果又有新的需求，比如选择是否刻字，以及刻哪些字呢？或者可以选择外壳的种类等等。这两种方式都不能很好地处理需求的变更。</p>
 
 <p>现在我们来说说 Builder Pattern，这个模式可以在各种语言里被很方便地实现，比如 javascript</p>
 
-<p>new PFXiPhone6Builder()
+<p><code>
+new PFXiPhone6Builder()
   .setStorage(64)
   .setColor('golden')
   .setPlace('HK')
   .build();
+</code>
 当有新的属性时，再加一个 setProperty 即可。如果漏写了某个属性，可以在 build 里检查。</p>
 
 <p>在 Objective-C 里，这样的链式写法不是很流行（Masonry里这种写法用的比较多），所以，在 OC 里写起来大概会是这样</p>
@@ -226,10 +233,11 @@ return [builder build];
 <p>// PFXiPhone6Builder
 - (PFXiPhone6 *)build
 {
-    // 可以在这里对 property 做检查
-    NSAssert(self.place, @"发行区别忘了填哦");</p>
+    // 可以在这里对 property 做检查</p>
 
-<pre><code>PFXiPhone6 *iphone6 = [[PFXiPhone6 alloc] init];
+<pre><code>NSAssert(self.place, @"发行区别忘了填哦");
+
+PFXiPhone6 *iphone6 = [[PFXiPhone6 alloc] init];
 iPhone6.storage = self.storage;
 iPhone6.color = self.color;
 iPhone6.place = self.place;
